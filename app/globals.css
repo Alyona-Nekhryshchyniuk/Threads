@@ -58,9 +58,8 @@
     @apply border-none bg-dark-3 text-base-regular text-light-4 outline-none !important;
   }
 
-  /* items-center  justify-between */
   .topbar {
-    @apply fixed top-0 z-30 flex w-full  bg-dark-2 px-6 py-3;
+    @apply fixed top-0 z-30 flex w-full items-center  justify-between bg-dark-2 px-6 py-3;
   }
 
   .bottombar {

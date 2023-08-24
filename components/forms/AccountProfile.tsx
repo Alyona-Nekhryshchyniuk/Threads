@@ -40,6 +40,7 @@ function AccountProfile({ user, btnTitle }: Props) {
     },
   });
 
+  
   function onSubmit(values: z.infer<typeof userValidation>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
@@ -69,6 +70,7 @@ function AccountProfile({ user, btnTitle }: Props) {
       </form>
     </Form>
   );
+
 }
 
 export default AccountProfile;

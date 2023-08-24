@@ -59,7 +59,7 @@
   }
 
   .topbar {
-    @apply fixed top-0 z-30 flex w-full items-center  justify-between bg-dark-2 px-6 py-3;
+    @apply fixed top-0 z-30 flex w-full items-center justify-between bg-dark-2 px-6 py-3;
   }
 
   .bottombar {
@@ -130,7 +130,6 @@
 /* Shadcn Component Styles */
 
 /* Tab */
-
 .tab {
   @apply flex min-h-[50px] flex-1 items-center gap-3 bg-dark-2 text-light-2 data-[state=active]:bg-[#0e0e12] data-[state=active]:text-light-2 !important;
 }
@@ -160,26 +159,3 @@
 .comment-form_btn {
   @apply rounded-3xl bg-primary-500 px-8 py-2 !text-small-regular text-light-1 max-xs:w-full !important;
 }
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */

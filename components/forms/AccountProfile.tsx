@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userValidation } from "../../lib/validations/user";
+import { UserValidation } from "../../lib/validations/user";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -44,7 +44,7 @@ function AccountProfile({ user, btnTitle }: Props) {
   const router = useRouter();
 
   const form = useForm({
-    resolver: zodResolver(userValidation),
+    resolver: zodResolver(UserValidation),
     defaultValues: {
       profile_photo: user?.image || "",
       name: user?.name || "",
@@ -53,7 +53,7 @@ function AccountProfile({ user, btnTitle }: Props) {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof userValidation>) => {
+  const onSubmit = async (values: z.infer<typeof UserValidation>) => {
     const blob = values.profile_photo;
     const hasImageChanged = isBase64Image(blob);
     if (hasImageChanged) {
@@ -142,6 +142,7 @@ function AccountProfile({ user, btnTitle }: Props) {
                   }}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -160,6 +161,7 @@ function AccountProfile({ user, btnTitle }: Props) {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -179,6 +181,7 @@ function AccountProfile({ user, btnTitle }: Props) {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -198,6 +201,7 @@ function AccountProfile({ user, btnTitle }: Props) {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

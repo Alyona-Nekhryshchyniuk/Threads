@@ -39,19 +39,20 @@ export async function updateUser({
     if (path === "/profile/edit") {
       revalidatePath(path);
     }
-
-
   } catch (error: any) {
     console.log(`Failed to create/update user: ${error.message}`);
   }
 }
 
-export async function fetchUser(userId: string){
-
-    try {
-        const user = await User.findOne({id:userId})
-        return user
-    } catch (error) {
-     console.log(`Failed to fetch user: ${error.message}`);   
-    }
+export async function fetchUser(userId: string) {
+  try {
+    connectToDB();
+    const user = await User.findOne({ id: userId });
+    // .populate({
+    //   path: "community, model: Community",
+    // });
+    return user;
+  } catch (error: any) {
+    console.log(`Failed to fetch user: ${error.message}`);
+  }
 }

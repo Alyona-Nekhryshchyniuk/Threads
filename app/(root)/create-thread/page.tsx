@@ -4,7 +4,6 @@ import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 async function Page() {
-  console.log("We are in CREEEATTTE  PAGGGEEE");
   const user = await currentUser();
 
   // Clerk will redirect to sign-in page automatically
@@ -16,7 +15,12 @@ async function Page() {
   console.log(typeof userInfo._id);
   console.log(userInfo._id.toString());
   console.log(userInfo._id);
+
+  
   let u = userInfo._id.toString();
+
+
+
   return (
     <>
       <h1 className="head-text">Create Thread</h1>

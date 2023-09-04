@@ -1,4 +1,5 @@
-"use client";
+// "use clients";
+
 //app/page.tsx
 // import { UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs";
@@ -7,8 +8,6 @@ import ThreadCard from "@/components/cards/ThreadCard";
 
 export default async function Home() {
   const result = await fetchPosts(1, 30);
-
-  console.log(result);
 
   const user = await currentUser();
   return (
@@ -24,7 +23,7 @@ export default async function Home() {
               id={post._id}
               currentUserId={user?.id || ""}
               parentId={post.parentId}
-              constent={post.constent}
+              content={post.text}
               author={post.author}
               community={post.community}
               createdAt={post.createdAt}

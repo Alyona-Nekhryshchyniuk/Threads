@@ -18,7 +18,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { usePathname, useRouter } from "next/navigation";
 
 import { ThreadValidation } from "../../lib/validations/thread";
-import createThread from "@/lib/actions/thread.actions";
+import { createThread } from "@/lib/actions/thread.actions";
 
 interface Props {
   user: {
@@ -45,7 +45,7 @@ function PostThread({ userId }: { userId: string }) {
   });
 
   const onSubmit = async (values: z.infer<typeof ThreadValidation>) => {
-   console.log('in submitHandler');
+    console.log("in submitHandler");
     await createThread({
       text: values.thread,
       author: userId,

@@ -2,7 +2,7 @@ import { fetchUser, getActivity } from "@/lib/actions/users.actions";
 import { currentUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import {Image} from 'next/image'
+import { Image } from "next/image";
 
 const Page = async () => {
   const user = await currentUser();
@@ -20,18 +20,27 @@ const Page = async () => {
     <section>
       <h1 className="head-text mb-10">Activity</h1>
 
-
       <section className="mt-10 flex flex-col gap-5">
-        {
-        
-        activity.length > 0 ? (<>{activity.map((activity)=>(<Link id={activity._id} href={`/thread/${activity.parentId}`}>
-            <article className="activity-class"> <Image src={activity.author.image} alt='Profile Picture' width={20} height={20} className='rounded-full object-cover'></Image></article></Link>))
-            
-            </>): (<p>No activity yet</p>)}
-    </section>
-
-
-
+        {activity.length > 0 ? (
+          <>
+            {activity.map((activity) => (
+              <Link id={activity._id} href={`/thread/${activity.parentId}`}>
+                <article className="activity-class">
+                  <Image
+                    src={activity.author.image}
+                    alt="Profile Picture"
+                    width={20}
+                    height={20}
+                    className="rounded-full object-cover"
+                  ></Image>
+                </article>
+              </Link>
+            ))}{" "}
+          </>
+        ) : (
+          <p>No activity yet</p>
+        )}
+      </section>
     </section>
   );
 };

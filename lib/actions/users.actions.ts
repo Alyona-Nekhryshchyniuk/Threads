@@ -142,6 +142,7 @@ export async function getActivity(userId: string) {
     // collect all the child thread ids(replies) from the children
 
     const childThreadIds = userTheads.reduce((acc, userThread) => {
+      console.log("ACCCCCCCCCCCCCCCC", acc);
       return acc.concat(userThread.children);
     }, []);
 
@@ -151,8 +152,11 @@ export async function getActivity(userId: string) {
     }).populate({
       path: "author",
       model: User,
-      select: "mane image _id",
+      select: "name image _id",
     });
+
+    if (!replies) return;
+
     return replies;
   } catch (error: any) {
     console.log(`Failed to fetch activity: ${error.message}`);

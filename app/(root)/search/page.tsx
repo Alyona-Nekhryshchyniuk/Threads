@@ -19,7 +19,7 @@ const Page = async () => {
 
   if (!userInfo?.onboarded) redirect("/onboarding");
 
-  const result: { users: any[] }[] = await fetchUsers({
+  const result = await fetchUsers({
     userId: user.id,
     searchString: "",
     pageNumber: 1,

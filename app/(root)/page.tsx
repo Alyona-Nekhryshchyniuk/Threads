@@ -7,7 +7,7 @@ import { fetchPosts } from "@/lib/actions/thread.actions";
 import ThreadCard from "@/components/cards/ThreadCard";
 
 export default async function Home() {
-  const result = await fetchPosts(1, 30);
+  const result = await fetchPosts(1, 10);
 
   const user = await currentUser();
   return (
@@ -28,6 +28,7 @@ export default async function Home() {
               community={post.community}
               createdAt={post.createdAt}
               comments={post.children}
+              // isComment
             />
           ))
         )}

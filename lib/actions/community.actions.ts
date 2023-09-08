@@ -144,7 +144,7 @@ export async function fetchCommunities({
       .limit(pageSize)
       .populate("members");
 
-    // Count the total number of communities that match the search criteria (without pagination).
+    // Count the total number of communities that match the search criteria (without pagination, regardless limit and skip).
     const totalCommunitiesCount = await Community.countDocuments(query);
 
     const communities = await communitiesQuery.exec();

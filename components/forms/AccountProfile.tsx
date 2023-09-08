@@ -90,6 +90,8 @@ function AccountProfile({ user, btnTitle }: Props) {
       const file = e.target.files[0];
       setFiles(Array.from(e.target.files));
       if (!file.type.includes("image")) return;
+
+      // without filereader we just get info about file(type, name, lastModified), not file itself
       fileReader.readAsDataURL(file);
       fileReader.onload = async (event) => {
         // const imageDataURL = event.target?.result?.toString() || "";

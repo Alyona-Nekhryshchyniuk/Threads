@@ -7,6 +7,7 @@ import { connectToDB } from "../mongoose";
 import User from "../models/user.model";
 import Thread from "../models/thread.model";
 import Community from "../models/community.model";
+import mongoose from "mongoose";
 
 export async function fetchPosts(pageNumber = 1, pageSize = 20) {
   connectToDB();
@@ -92,7 +93,6 @@ export async function createThread({
     throw new Error(`Failed to create thread: ${error.message}`);
   }
 }
-
 
 async function fetchAllChildThreads(threadId: string): Promise<any[]> {
   const childThreads = await Thread.find({ parentId: threadId });
@@ -242,4 +242,30 @@ export async function addCommentToThread(
     console.error("Error while adding comment:", err);
     throw new Error("Unable to add comment");
   }
+}
+
+export async function addLikeToThread(id: string, x: string, type: string) {
+  connectToDB();
+  console.log("X ---------------+-", x);
+  try {
+    let thread = await Thread.findById(id);
+    const likeOwner = await User.findOne({ id: x });
+    // type === "inc" && thread.likes.includes()
+    type === "inc"
+      ? thread.likes.push(likeOwner._id)
+      : thread.likes.pop(likeOwner._id);
+    const updatedThread = await thread.save();
+
+    return updatedThread.likes.length;
+  } catch (err) {
+    console.error("Error while adding like:", err);
+    throw new Error("Unable to add like");
+  }
+}
+
+export async function getLikesAmount(id: string, x: string) {
+  let thread = await Thread.findById(id);
+  const likeOwner = await User.findOne({ id: x });
+  const likedAlready = thread.likes.includes(likeOwner._id);
+  return { amount: thread.likes.length, likedAlready };
 }

@@ -1,4 +1,4 @@
-import ThreadCard from "@/components/cards/ThreadCard";
+import ThreadCard from "@/components/cards/threadCard/ThreadCard";
 import Comment from "@/components/forms/Comment";
 import { fetchThreadById } from "@/lib/actions/thread.actions";
 import { fetchUser } from "@/lib/actions/users.actions";

@@ -1,6 +1,6 @@
 import { fetchUserPosts } from "@/lib/actions/users.actions";
 import { redirect } from "next/navigation";
-import ThreadCard from "../cards/ThreadCard";
+import ThreadCard from "../cards/threadCard/ThreadCard";
 import { fetchCommunityPosts } from "@/lib/actions/community.actions";
 
 interface Props {

@@ -5,11 +5,20 @@
 import { currentUser } from "@clerk/nextjs";
 import { fetchPosts } from "@/lib/actions/thread.actions";
 import ThreadCard from "@/components/cards/threadCard/ThreadCard";
+import Pagination from "@/components/shared/Pagination";
 
-export default async function Home() {
-  const result = await fetchPosts(1, 10);
-
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) {
+  const result = await fetchPosts(
+    searchParams?.page ? +searchParams.page : 1,
+    7
+  );
+  console.log(result);
   const user = await currentUser();
+
   return (
     <div>
       <h1 className="head-text text-left">Home</h1>
@@ -33,6 +42,12 @@ export default async function Home() {
           ))
         )}
       </section>
+
+      <Pagination
+        path=""
+        pageNumber={searchParams?.page ? +searchParams.page : 1}
+        isNext={result.isNext}
+      />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import ThreadCardActions from "./ThreadCardActions";
+import { currentUser } from "@clerk/nextjs";
 
 interface Props {
   key: string;
@@ -17,8 +18,9 @@ interface Props {
     autor: { image: string };
   }[];
   isComment?: boolean;
+  // setEdit?: () => void;
 }
-const ThreadCard = ({
+const ThreadCard = async ({
   id,
   currentUserId,
   parentId,
@@ -28,7 +30,9 @@ const ThreadCard = ({
   createdAt,
   comments,
   isComment,
+  // setEdit,
 }: Props) => {
+  const user = await currentUser();
   return (
     <article
       className={`flex  w-full flex-col rounded-xl ${
@@ -55,9 +59,14 @@ const ThreadCard = ({
                 {author.name}
               </h4>
             </Link>
-            <p className="mt-2 text-small-regular text-light-2">{content}</p>
+            {/* <ThreadCardContent content={content} edit={edit}/> */}
+            <p className="mt-2 text-small-regular text-light-2">{content}</p>;
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
-              <ThreadCardActions id={id} currentUserId={currentUserId} />
+              <ThreadCardActions
+                id={id}
+                currentUserId={user?.id || ""}
+                // setEdit={setEdit}
+              />
             </div>
 
             {comments.length > 0 && (

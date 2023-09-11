@@ -7,7 +7,8 @@ import { connectToDB } from "../mongoose";
 import User from "../models/user.model";
 import Thread from "../models/thread.model";
 import Community from "../models/community.model";
-import mongoose from "mongoose";
+import mongoose, { AnyObject } from "mongoose";
+import ThreadsTab from "@/components/shared/ThreadsTab";
 
 export async function fetchPosts(pageNumber = 1, pageSize = 20) {
   connectToDB();
@@ -171,27 +172,27 @@ export async function fetchThreadById(threadId: string) {
         path: "author",
         model: User,
         select: "_id id name image",
-      }) // Populate the author field with _id and username
+      })
       .populate({
         path: "community",
         model: Community,
         select: "_id id name image",
-      }) // Populate the community field with _id and name
+      })
       .populate({
-        path: "children", // Populate the children field
+        path: "children",
         populate: [
           {
-            path: "author", // Populate the author field within children
+            path: "author",
             model: User,
             select: "_id id name parentId image", // Select only _id and username fields of the author
           },
           {
-            path: "children", // Populate the children field within children
-            model: Thread, // The model of the nested children (assuming it's the same "Thread" model)
+            path: "children",
+            model: Thread,
             populate: {
-              path: "author", // Populate the author field within nested children
+              path: "author",
               model: User,
-              select: "_id id name parentId image", // Select only _id and username fields of the author
+              select: "_id id name parentId image",
             },
           },
         ],
@@ -244,18 +245,23 @@ export async function addCommentToThread(
   }
 }
 
-export async function addLikeToThread(id: string, x: string, type: string) {
+export async function addLikeToThread(
+  id: string,
+  likeOwnerId: string,
+  type: string
+) {
   connectToDB();
-  console.log("X ---------------+-", x);
   try {
-    let thread = await Thread.findById(id);
-    const likeOwner = await User.findOne({ id: x });
-    // type === "inc" && thread.likes.includes()
+    const thread = await Thread.findById(id);
+    const likeOwner = await User.findOne({ id: likeOwnerId });
+
     type === "inc"
       ? thread.likes.push(likeOwner._id)
-      : thread.likes.pop(likeOwner._id);
+      : thread.likes.splice(
+          thread.likes.findIndex((el: any) => el === likeOwner._id),
+          1
+        );
     const updatedThread = await thread.save();
-
     return updatedThread.likes.length;
   } catch (err) {
     console.error("Error while adding like:", err);
@@ -263,9 +269,29 @@ export async function addLikeToThread(id: string, x: string, type: string) {
   }
 }
 
-export async function getLikesAmount(id: string, x: string) {
-  let thread = await Thread.findById(id);
-  const likeOwner = await User.findOne({ id: x });
-  const likedAlready = thread.likes.includes(likeOwner._id);
+export async function getLikesAmount(id: string, currentUserId: string) {
+  const thread = await Thread.findById(id);
+  const currentUser = await User.findOne({ id: currentUserId });
+  const likedAlready = thread.likes.includes(currentUser?._id);
   return { amount: thread.likes.length, likedAlready };
+}
+
+export async function editComment(
+  threadId: string,
+  commentText: string,
+  userId: string,
+  path: string
+) {
+  connectToDB();
+  try {
+    const newComment = Thread.updateOne(
+      { id: threadId },
+      { text: commentText, author: userId, parentId: threadId }
+    );
+    revalidatePath(path);
+
+    return newComment;
+  } catch (error) {
+    console.error("Error while editing comment:", err);
+  throw new Error("Unable to edit comment");}
 }

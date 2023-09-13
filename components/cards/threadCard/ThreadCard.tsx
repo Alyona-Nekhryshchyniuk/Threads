@@ -29,9 +29,9 @@ const ThreadCard = async ({
   community,
   createdAt,
   comments,
-  isComment,
-  // setEdit,
-}: Props) => {
+  isComment = false,
+}: 
+Props) => {
   const user = await currentUser();
   return (
     <article
@@ -59,16 +59,14 @@ const ThreadCard = async ({
                 {author.name}
               </h4>
             </Link>
-            {/* <ThreadCardContent content={content} edit={edit}/> */}
-            <p className="mt-2 text-small-regular text-light-2">{content}</p>;
+            <p className="mt-2 text-small-regular text-light-2">{content}</p>
             <div className={`${isComment && "mb-10"} mt-5 flex flex-col gap-3`}>
               <ThreadCardActions
                 id={id}
                 currentUserId={user?.id || ""}
-                // setEdit={setEdit}
+                isComment={isComment}
               />
             </div>
-
             {comments.length > 0 && (
               <Link href={`/thread/${id}`}>
                 <p className="mt-3 text-subtle-medium text-gray-1">

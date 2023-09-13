@@ -11,7 +11,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const user = await currentUser();
   if (!user) return null;
 
- 
+  const userInfo = await fetchUser(user.id);
+  if (!userInfo?.onboarded) redirect("/onboarding");
 
   const thread = await fetchThreadById(params.id);
 
@@ -30,7 +31,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           comments={thread.children}
         />
       </div>
-      <Comments thread={thread} userId={user.id}/>
+      <Comments thread={thread} userInfo={userInfo} />
     </section>
   );
 };

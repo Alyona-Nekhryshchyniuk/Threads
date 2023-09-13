@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import { fetchUser } from "@/lib/actions/users.actions";
 import ThreadCard from "./cards/threadCard/ThreadCard";
 import Comment from "./forms/Comment";
@@ -6,8 +6,10 @@ import { redirect } from "next/navigation";
 import { useState } from "react";
 
 interface Props {
-  userId: string;
+  userInfo: { image: string; _id: string };
+  
   thread: {
+    id: string;
     children: {
       _id: string;
       text: string;
@@ -19,11 +21,10 @@ interface Props {
   };
 }
 
-const Comments = async ({ thread, userId }: Props) => {
-//   const [edit, setEdit] = useState(false);
-  const userInfo = await fetchUser(userId);
-  if (!userInfo?.onboarded) redirect("/onboarding");
-
+const Comments = async ({ thread, userInfo }: Props) => {
+  //   const [edit, setEdit] = useState(false);
+  // const userInfo = await fetchUser(userId);
+  // if (!userInfo?.onboarded) redirect("/onboarding");
 
   return (
     <>
@@ -32,7 +33,8 @@ const Comments = async ({ thread, userId }: Props) => {
           threadId={thread.id}
           currentUserImg={userInfo.image}
           currentUserId={JSON.stringify(userInfo._id)}
-        //   edit={edit}
+          
+          //   edit={edit}
         />
       </div>
       <div className="mt-10">

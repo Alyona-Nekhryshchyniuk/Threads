@@ -164,6 +164,7 @@ export async function deleteThread(id: string, path: string): Promise<void> {
 }
 
 export async function fetchThreadById(threadId: string) {
+  console.log("in fetch -------------------------", threadId);
   connectToDB();
 
   try {
@@ -198,13 +199,14 @@ export async function fetchThreadById(threadId: string) {
         ],
       })
       .exec();
-
+    console.log("thread -----------", thread);
     return thread;
   } catch (err) {
     console.error("Error while fetching thread:", err);
     throw new Error("Unable to fetch thread");
   }
 }
+
 
 export async function addCommentToThread(
   threadId: string,
@@ -274,24 +276,4 @@ export async function getLikesAmount(id: string, currentUserId: string) {
   const currentUser = await User.findOne({ id: currentUserId });
   const likedAlready = thread.likes.includes(currentUser?._id);
   return { amount: thread.likes.length, likedAlready };
-}
-
-export async function editComment(
-  threadId: string,
-  commentText: string,
-  userId: string,
-  path: string
-) {
-  connectToDB();
-  try {
-    const newComment = Thread.updateOne(
-      { id: threadId },
-      { text: commentText, author: userId, parentId: threadId }
-    );
-    revalidatePath(path);
-
-    return newComment;
-  } catch (error) {
-    console.error("Error while editing comment:", err);
-  throw new Error("Unable to edit comment");}
 }

@@ -13,58 +13,44 @@ import {
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { CommentValidation } from "../../lib/validations/thread";
 import Image from "next/image";
-import { addCommentToThread, editComment } from "@/lib/actions/thread.actions";
+import {
+  addCommentToThread
+} from "@/lib/actions/thread.actions";
 
 interface Props {
   threadId: string;
   currentUserImg: string;
   currentUserId: string;
-  // x?: string;
-  // edit: boolean;
 }
 
 const Comment = ({
   threadId,
   currentUserImg,
   currentUserId,
-  // edit,
-}: Props) => {
-  const pathname = usePathname();
-  const router = useRouter();
-
+}: 
+Props) => {
   const form = useForm({
     resolver: zodResolver(CommentValidation),
     defaultValues: {
-      thread: ""
+      thread: "",
     },
   });
 
+  const pathname = usePathname();
 
-  // useEffect(()=>{
- // if(pathname.includes('edit=')){
- // setValue('comment', updatedCommentContent)
-//  setFocus()}
-  // }, [pathName])
 
   const onSubmit = async (values: z.infer<typeof CommentValidation>) => {
-     // if(pathname.includes('edit=')){
-      // ? await editComment(
-      //     threadId,
-      //     values.thread,
-      //     JSON.parse(currentUserId),
-      //     pathname
-      //   )
-      // : 
-      await addCommentToThread(
-          threadId,
-          values.thread,
-          JSON.parse(currentUserId),
-          pathname
-        );
+    
+    await addCommentToThread(
+      threadId,
+      values.thread,
+      JSON.parse(currentUserId),
+      pathname
+    );
 
     form.reset();
   };
@@ -91,7 +77,6 @@ const Comment = ({
                   type="text"
                   placeholder="Comment..."
                   className="no-focus outline-none text-light-1"
-                  name='comment'
                   {...field}
                 />
               </FormControl>

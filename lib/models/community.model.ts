@@ -1,5 +1,5 @@
 // @ts-ignore
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 console.log("mongoose -------", mongoose);
 const communitySchema = new mongoose.Schema({
   id: {

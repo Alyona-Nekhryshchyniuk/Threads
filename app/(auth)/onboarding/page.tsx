@@ -9,9 +9,11 @@ import { fetchUser } from "@/lib/actions/user.actions";
 
 async function Page() {
   const user = await currentUser();
+  console.log("UUUUSSEEEEEERRR------", user);
   if (!user) return null; // to avoid typescript warnings
-  console.log(user);
+
   const userInfo = await fetchUser(user.id);
+  console.log("userInfo--------", user);
   if (userInfo?.onboarded) redirect("/");
 
   const userData = {

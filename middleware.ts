@@ -1,10 +1,11 @@
 import { authMiddleware } from "@clerk/nextjs";
 
-// By default, all routes, even '/',  are hidden behind authentication by this authMiddleware()
-// publicRoutes[] will make some routes accesible even before authentication
 export default authMiddleware({
-  publicRoutes: ["/", "/api/webhook/clerk"],
-  ignoredRoutes: "/api/webhook/clerk",
+  // An array of public routes that don't require authentication.
+  publicRoutes: ["/api/webhook/clerk"],
+
+  // An array of routes to be ignored by the authentication middleware.
+  ignoredRoutes: ["/api/webhook/clerk"],
 });
 
 export const config = {

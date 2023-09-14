@@ -1,8 +1,7 @@
 "use server";
 
-// @ts-ignore
-import { FilterQuery, SortOrder } from "mongoose";
-
+// import { FilterQuery, SortOrder } from "mongoose";
+const { FilterQuery, SortOrder } = require("mongoose");
 import Community from "../models/community.model";
 import Thread from "../models/thread.model";
 import User from "../models/user.model";
@@ -113,7 +112,7 @@ export async function fetchCommunities({
   searchString?: string;
   pageNumber?: number;
   pageSize?: number;
-  sortBy?: SortOrder;
+  sortBy?: typeof SortOrder;
 }) {
   try {
     connectToDB();
@@ -125,7 +124,7 @@ export async function fetchCommunities({
     const regex = new RegExp(searchString, "i");
 
     // Create an initial query object to filter communities.
-    const query: FilterQuery<typeof Community> = {};
+    const query: typeof FilterQuery = {};
 
     // If the search string is not empty, add the $or operator to match either username or name fields.
     if (searchString.trim() !== "") {

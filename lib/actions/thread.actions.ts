@@ -7,7 +7,9 @@ import { connectToDB } from "../mongoose";
 import User from "../models/user.model";
 import Thread from "../models/thread.model";
 import Community from "../models/community.model";
-import mongoose, { AnyObject } from "mongoose";
+// import mongoose, { AnyObject } from "mongoose";
+const mongoose = require("mongoose");
+const AnyObject = mongoose.AnyObject;
 import ThreadsTab from "@/components/shared/ThreadsTab";
 
 export async function fetchPosts(pageNumber = 1, pageSize = 20) {
@@ -206,7 +208,6 @@ export async function fetchThreadById(threadId: string) {
     throw new Error("Unable to fetch thread");
   }
 }
-
 
 export async function addCommentToThread(
   threadId: string,

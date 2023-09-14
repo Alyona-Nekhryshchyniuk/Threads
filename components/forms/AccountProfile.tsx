@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
-import { ZodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
   Form,
@@ -45,7 +45,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   const [files, setFiles] = useState<File[]>([]);
 
   const form = useForm<z.infer<typeof UserValidation>>({
-    resolver: ZodResolver(UserValidation),
+    resolver: zodResolver(UserValidation),
     defaultValues: {
       profile_photo: user?.image ? user.image : "",
       name: user?.name ? user.name : "",

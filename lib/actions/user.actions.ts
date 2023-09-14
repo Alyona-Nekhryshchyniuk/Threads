@@ -1,6 +1,6 @@
 "use server";
-
-import { FilterQuery, SortOrder } from "mongoose";
+const { FilterQuery, SortOrder } = require("mongoose");
+// import { FilterQuery, SortOrder } from "mongoose";
 import { revalidatePath } from "next/cache";
 
 import Community from "../models/community.model";
@@ -106,7 +106,7 @@ export async function fetchUsers({
   searchString?: string;
   pageNumber?: number;
   pageSize?: number;
-  sortBy?: SortOrder;
+  sortBy?: typeof SortOrder;
 }) {
   try {
     connectToDB();
@@ -118,7 +118,7 @@ export async function fetchUsers({
     const regex = new RegExp(searchString, "i");
 
     // Create an initial query object to filter users.
-    const query: FilterQuery<typeof User> = {
+    const query: typeof FilterQuery = {
       id: { $ne: userId }, // Exclude the current user from the results.
     };
 
@@ -161,7 +161,7 @@ export async function getActivity(userId: string) {
     const userThreads = await Thread.find({ author: userId });
 
     // Collect all the child thread ids (replies) from the 'children' field of each user thread
-    const childThreadIds = userThreads.reduce((acc, userThread) => {
+    const childThreadIds = userThreads.reduce((acc: any, userThread: any) => {
       return acc.concat(userThread.children);
     }, []);
 

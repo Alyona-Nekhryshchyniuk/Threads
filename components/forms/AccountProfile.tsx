@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import Image from "next/image";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,7 +23,7 @@ import { useUploadThing } from "@/lib/uploadthing";
 import { isBase64Image } from "@/lib/utils";
 
 import { UserValidation } from "@/lib/validations/user";
-import { updateUser } from '../../lib/actions/user.actions.ts';
+import { updateUser } from "../../lib/actions/user.actions";
 
 interface Props {
   user: {
@@ -114,7 +114,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         <FormField
           control={form.control}
           name="profile_photo"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem className="flex items-center gap-4">
               <FormLabel className="account-form_image-label">
                 {field.value ? (
@@ -152,7 +152,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         <FormField
           control={form.control}
           name="name"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem className="flex w-full flex-col gap-3">
               <FormLabel className="text-base-semibold text-light-2">
                 Name
@@ -172,7 +172,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         <FormField
           control={form.control}
           name="username"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem className="flex w-full flex-col gap-3">
               <FormLabel className="text-base-semibold text-light-2">
                 Username
@@ -192,7 +192,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
         <FormField
           control={form.control}
           name="bio"
-          render={({ field }) => (
+          render={({ field }: any) => (
             <FormItem className="flex w-full flex-col gap-3">
               <FormLabel className="text-base-semibold text-light-2">
                 Bio

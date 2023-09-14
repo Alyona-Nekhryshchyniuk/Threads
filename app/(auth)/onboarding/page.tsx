@@ -8,7 +8,7 @@ import { fetchUser } from "@/lib/actions/user.actions";
 async function Page() {
   const user = await currentUser();
   if (!user) return null; // to avoid typescript warnings
-
+console.log(user);
   const userInfo = await fetchUser(user.id);
   if (userInfo?.onboarded) redirect("/");
 

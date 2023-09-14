@@ -1,5 +1,6 @@
 "use server";
 
+// @ts-ignore
 import { FilterQuery, SortOrder } from "mongoose";
 
 import Community from "../models/community.model";
@@ -289,7 +290,7 @@ export async function deleteCommunity(communityId: string) {
     const communityUsers = await User.find({ communities: communityId });
 
     // Remove the community from the 'communities' array for each user
-    const updateUserPromises = communityUsers.map((user:any) => {
+    const updateUserPromises = communityUsers.map((user: any) => {
       user.communities.pull(communityId);
       return user.save();
     });

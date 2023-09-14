@@ -1,6 +1,6 @@
 import PostThread from "@/components/forms/PostThread";
 import ProfileHeader from "@/components/shared/ProfileHeader";
-import { fetchUser, fetchUsers } from "@/lib/actions/users.actions";
+import { fetchUser, fetchUsers } from "@/lib/actions/user.actions";
 
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";

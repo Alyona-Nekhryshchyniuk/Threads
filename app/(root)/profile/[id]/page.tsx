@@ -1,10 +1,10 @@
 import PostThread from "@/components/forms/PostThread";
 import ProfileHeader from "@/components/shared/ProfileHeader";
-import { fetchUser } from "@/lib/actions/users.actions";
+import { fetchUser } from "@/lib/actions/user.actions";
 
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Image from "next/image";
 import { profileTabs } from "@/constants";
 import ThreadsTab from "@/components/shared/ThreadsTab";
@@ -31,23 +31,37 @@ const Page = async ({ params }: { params: { id: string } }) => {
       />
 
       <div mt-9>
-        <Tabs defaultValue='threads' className="w-full">
-          <TabsList className='tab'>
-            {profileTabs.map((tab)=>(
+        <Tabs defaultValue="threads" className="w-full">
+          <TabsList className="tab">
+            {profileTabs.map((tab) => (
               <TabsTrigger key={tab.label} value={tab.value} className="tab">
-                <Image src={tab.icon} alt={tab.label} width={24} height={24} className="object-contain"/>
+                <Image
+                  src={tab.icon}
+                  alt={tab.label}
+                  width={24}
+                  height={24}
+                  className="object-contain"
+                />
                 <p className="max-sm:hidden">{tab.label}</p>
-                {tab.label === 'Threads' && (
-                  <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">{userInfo?.threads?.length}</p>
+                {tab.label === "Threads" && (
+                  <p className="ml-1 rounded-sm bg-light-4 px-2 py-1 !text-tiny-medium text-light-2">
+                    {userInfo?.threads?.length}
+                  </p>
                 )}
               </TabsTrigger>
             ))}
-
           </TabsList>
-          {profileTabs.map((tab)=>(
-            <TabsContent key={`content-${tab.label}`} value={tab.value} className="w-full text-light-1">
-              <ThreadsTab currentUserId={user.id} accountId={userInfo.id} accountType='User' />
-
+          {profileTabs.map((tab) => (
+            <TabsContent
+              key={`content-${tab.label}`}
+              value={tab.value}
+              className="w-full text-light-1"
+            >
+              <ThreadsTab
+                currentUserId={user.id}
+                accountId={userInfo.id}
+                accountType="User"
+              />
             </TabsContent>
           ))}
         </Tabs>

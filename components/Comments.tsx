@@ -1,5 +1,5 @@
 // "use client";
-import { fetchUser } from "@/lib/actions/users.actions";
+import { fetchUser } from "@/lib/actions/user.actions";
 import ThreadCard from "./cards/threadCard/ThreadCard";
 import Comment from "./forms/Comment";
 import { redirect } from "next/navigation";
@@ -7,7 +7,7 @@ import { useState } from "react";
 
 interface Props {
   userInfo: { image: string; _id: string };
-  
+
   thread: {
     id: string;
     children: {
@@ -33,7 +33,7 @@ const Comments = async ({ thread, userInfo }: Props) => {
           threadId={thread.id}
           currentUserImg={userInfo.image}
           currentUserId={JSON.stringify(userInfo._id)}
-          
+
           //   edit={edit}
         />
       </div>
